@@ -12,8 +12,9 @@
 
 // Module for the gameboard
 const gameBoard = (() => {
-  // let playArea = [a1.textContent, a2, a3, b1, b2, b3, c1, c2, c3];
+  
   let playArea = [];
+
   // make a function to loop through grid and put results in an array
   const storeGrid = (list) => {
     playArea.splice(0, 9);
@@ -21,6 +22,7 @@ const gameBoard = (() => {
       playArea.push(list[i].textContent);
     }
   }
+  // function to check if anyone has won
   const checkWin = array => {
     if (
         (array[0] && array[0] == array[1] && array[0] == array[2]) || 
@@ -28,19 +30,26 @@ const gameBoard = (() => {
         (array[0] && array[0] == array[3] && array[0] == array[6])
         ) {
           // array[0] WINS!
+          console.log(array[0] + " wins")
         } 
     else if (
         (array[8] && array[8] == array[5] && array[8] == array[2]) ||
         (array[8] && array[8] == array[7] && array[8] == array[6])
         ) {
           // array[8] WINS!
+          console.log(array[8] + " wins")
         }
     else if (
         (array[4] && array[4] == array[1] && array[4] == array[7]) ||
-        (array[4] && array[4] == array[3] && array[4] == array[5])
+        (array[4] && array[4] == array[3] && array[4] == array[5]) ||
+        (array[4] && array[4] == array[6] && array[4] == array[2])
         ) {
           // array[4] WINS!
+          console.log(array[4] + " wins")
         }
+    else if (array.filter(n => n).length == 9) {
+      console.log("draw");
+    }
   }
   return {playArea, storeGrid, checkWin};
 })();
