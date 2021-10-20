@@ -1,27 +1,41 @@
-// storing the cells in variables. surely there is a better way to do this...
-// const a1 = document.querySelector(".a1");
-// const a2 = document.querySelector(".a2");
-// const a3 = document.querySelector(".a3");
-// const b1 = document.querySelector(".b1");
-// const b2 = document.querySelector(".b2");
-// const b3 = document.querySelector(".b3");
-// const c1 = document.querySelector(".c1");
-// const c2 = document.querySelector(".c2");
-// const c3 = document.querySelector(".c3");
-
-
 // Module for the gameboard
 const gameBoard = (() => {
   
   let playArea = [];
 
-  // make a function to loop through grid and put results in an array
   const storeGrid = (list) => {
     playArea.splice(0, 9);
     for (let i = 0; i < 9; i++) {
       playArea.push(list[i].textContent);
     }
   }
+
+  return {playArea, storeGrid};
+})();
+
+
+
+// Player factory function
+const player = (name, score, token) => {
+
+  return {name, score, token};
+}
+
+// Module to control the flow of the game
+const gameController = (() => {
+
+  // function to place tokens
+  const playTurn = (grid) => { 
+    if (grid.textContent == "") {
+      grid.textContent = gameController.token;
+      gameController.token === "X" ? gameController.token = "O" : gameController.token = "X"
+    } else if (grid.textContent !== "") {console.log("Can't play there")}
+
+    gameBoard.storeGrid(cells);
+    console.log(gameBoard.playArea);
+    checkWin(gameBoard.playArea);
+  };
+
   // function to check if anyone has won
   const checkWin = array => {
     if (
@@ -50,40 +64,11 @@ const gameBoard = (() => {
     else if (array.filter(n => n).length == 9) {
       console.log("draw");
     }
-  }
-  return {playArea, storeGrid, checkWin};
-})();
-
-
-
-// Player factory function
-const player = (name, score, token) => {
-
-  return {name, score, token};
-}
-
-// Module to control the flow of the game
-const gameController = (() => {
-
-  let playTurn = (grid) => { 
-    if (grid.textContent == "") {
-      grid.textContent = gameController.token;
-      gameController.token === "X" ? gameController.token = "O" : gameController.token = "X"
-    } else if (grid.textContent !== "") {console.log("Can't play there")}
-
-    gameBoard.storeGrid(cells);
-    console.log(gameBoard.playArea);
-    gameBoard.checkWin(gameBoard.playArea);
-  };
-
-
-  // code to return the result of the game
-  let result = () => {
-  };
+};
 
   return {
     playTurn, 
-    result,
+    checkWin,
     token: "X"
   };
 })();

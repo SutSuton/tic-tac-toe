@@ -1,10 +1,46 @@
+:root {
+  --box-size: 200px;
+}
+h1 {
+  font-size: 80px;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.game-body {
+  display: flex;
+  align-items: flex-start;
+}
 .gameboard {
   display: grid;
-  grid-template-columns: repeat(3, 100px);
+  grid-template-columns: repeat(3, var(--box-size));
   gap: 10px;
+  
 }
 .cell {
   border: 1px solid black;
   background-color: rgb(255, 139, 103);
-  height: 100px;
+  height: var(--box-size);
+
+  font-family: 'Permanent Marker', cursive;
+  text-align: center;
+  line-height: var(--box-size);
+  font-size: 150px;
+}
+.player {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 100px;
+}
+.player-header {
+  font-family: 'Permanent Marker', cursive;
+  font-size: var(--box-size);
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+.player-name {
+  font-size: 30px;
 }
