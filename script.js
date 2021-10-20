@@ -10,9 +10,20 @@ const gameBoard = (() => {
     }
   }
 
-  return {playArea, storeGrid};
+  const resignation = () => {
+    playArea = [];
+    gameController.token === "X" ? alert("O wins by resignation") : alert("X wins by resignation");
+    for (let i = 0; i < 9; i++) {
+      cells[i].textContent = "";
+    }
+  }
+  return {playArea, storeGrid, resignation};
 })();
 
+const resignButton = document.querySelector(".resign");
+resignButton.addEventListener("click", function(e) {
+  gameBoard.resignation();
+})
 
 
 // Player factory function
@@ -83,3 +94,7 @@ function addListFunction(list) {
   }
 };
 addListFunction(cells);
+
+
+const boxSize = getComputedStyle(document.documentElement)
+                    .getPropertyValue('--box-size')

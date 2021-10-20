@@ -1,8 +1,10 @@
 :root {
-  --box-size: 200px;
+  --box-size: 18vh;
+  --token-size: 14vh;
 }
 h1 {
   font-size: 80px;
+  margin: 30px;
 }
 body {
   display: flex;
@@ -11,13 +13,13 @@ body {
 }
 .game-body {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
 }
 .gameboard {
   display: grid;
   grid-template-columns: repeat(3, var(--box-size));
-  gap: 10px;
-  
+  gap: 1vh;
+  background-color: black;
 }
 .cell {
   border: 1px solid black;
@@ -27,13 +29,20 @@ body {
   font-family: 'Permanent Marker', cursive;
   text-align: center;
   line-height: var(--box-size);
-  font-size: 150px;
+  font-size: var(--token-size);
+  border: 0px;
 }
+.cell:hover {
+  background-color:rgb(255, 188, 168);
+}
+
 .player {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 100px;
+  margin: 0 100px;
+  padding: 100px;
+  border: 1px solid red;
 }
 .player-header {
   font-family: 'Permanent Marker', cursive;
