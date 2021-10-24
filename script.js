@@ -1,3 +1,14 @@
+// Global variables
+const cells = document.querySelectorAll(".cell")
+function addListFunction(list) {
+  for (let i = 0; i < 9; i++) {
+    list[i].addEventListener("click", function(e) {
+      gameController.playTurn(list[i]);
+    });
+  }
+};
+addListFunction(cells);
+
 // Module for the gameboard
 const gameBoard = (() => {
   
@@ -26,7 +37,6 @@ resignButton.addEventListener("click", function(e) {
   gameBoard.clearGrid();
 })
 
-
 // Player factory function
 const player = (name, score, token) => {
 
@@ -41,7 +51,9 @@ const gameController = (() => {
     if (grid.textContent == "") {
       grid.textContent = gameController.token;
       gameController.token === "X" ? gameController.token = "O" : gameController.token = "X"
-    } else if (grid.textContent !== "") {console.log("Can't play there")}
+    } else if (grid.textContent !== "") {
+      return;
+    }
 
     gameBoard.storeGrid(cells);
     console.log(gameBoard.playArea);
@@ -89,17 +101,18 @@ const gameController = (() => {
   };
 })();
 
-const cells = document.querySelectorAll(".cell")
-
-function addListFunction(list) {
-  for (let i = 0; i < 9; i++) {
-    list[i].addEventListener("click", function(e) {
-      gameController.playTurn(list[i]);
-    });
+// AI module
+const computerPlay = (() => {
+  const easy = array => {
+    let random;
+    for (let i = 1; i < Infinity; i++) {
+      random = Math.floor(Math.random() * 9);
+      if (array[random].textContent === "") {
+        gameController.playTurn(array[random]);
+        break;
+      } else continue;
+    }
   }
-};
-addListFunction(cells);
 
-
-const boxSize = getComputedStyle(document.documentElement)
-                    .getPropertyValue('--box-size')
+  return {easy};
+})();
