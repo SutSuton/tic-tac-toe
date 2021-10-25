@@ -38,9 +38,8 @@ resignButton.addEventListener("click", function(e) {
 })
 
 // Player factory function
-const player = (name, score, token) => {
-
-  return {name, score, token};
+const player = (name, token) => {
+  return {name, token};
 }
 
 // Module to control the flow of the game
@@ -68,7 +67,8 @@ const gameController = (() => {
         (array[0] && array[0] == array[3] && array[0] == array[6])
         ) {
           // array[0] WINS!
-          alert(array[0] + " wins!");
+          if (array[0] === "X") alert(form.player1.name + " Wins!");
+          else alert(form.player2.name + " Wins!");
           gameBoard.clearGrid();
         } 
     else if (
@@ -76,7 +76,8 @@ const gameController = (() => {
         (array[8] && array[8] == array[7] && array[8] == array[6])
         ) {
           // array[8] WINS!
-          alert(array[8] + " wins!");
+          if (array[8] === "X") alert(form.player1.name + " Wins!");
+          else alert(form.player2.name + " Wins!");
           gameBoard.clearGrid();
         }
     else if (
@@ -85,7 +86,8 @@ const gameController = (() => {
         (array[4] && array[4] == array[6] && array[4] == array[2])
         ) {
           // array[4] WINS!
-          alert(array[4] + " wins!");
+          if (array[4] === "X") alert(form.player1.name + " Wins!");
+          else alert(form.player2.name + " Wins!");
           gameBoard.clearGrid();
         }
     else if (array.filter(n => n).length == 9) {
@@ -116,3 +118,26 @@ const computerPlay = (() => {
 
   return {easy};
 })();
+
+// form module
+const form = (() => {
+  let player1;
+  let player2;
+  const playerForm = document.querySelector(".player-entry-form");
+
+  playerForm.addEventListener("submit", function(e) {
+    e.preventDefault();
+    const player1Name = document.querySelector(".player-1").value;
+    const player2Name = document.querySelector(".player-2").value;
+    form.player1 = player(player1Name, "X");
+    form.player2 = player(player2Name, "O");
+    document.querySelector(".xName").textContent = form.player1.name;
+    document.querySelector(".oName").textContent = form.player2.name;
+  });
+
+  return {
+    player1,
+    player2,
+  }
+})();
+
