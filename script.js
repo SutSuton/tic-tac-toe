@@ -9,6 +9,12 @@ function addListFunction(list) {
 };
 addListFunction(cells);
 
+const resignButton = document.querySelector(".resign");
+resignButton.addEventListener("click", function(e) {
+  gameController.token === "X" ? alert("O wins by resignation") : alert("X wins by resignation");
+  gameBoard.clearGrid();
+})
+
 // Module for the gameboard
 const gameBoard = (() => {
   
@@ -30,12 +36,6 @@ const gameBoard = (() => {
   }
   return {playArea, storeGrid, clearGrid};
 })();
-
-const resignButton = document.querySelector(".resign");
-resignButton.addEventListener("click", function(e) {
-  gameController.token === "X" ? alert("O wins by resignation") : alert("X wins by resignation");
-  gameBoard.clearGrid();
-})
 
 // Player factory function
 const player = (name, token) => {
@@ -124,6 +124,7 @@ const form = (() => {
   let player1;
   let player2;
   const playerForm = document.querySelector(".player-entry-form");
+  const gameBody = document.querySelector(".game-body");
 
   playerForm.addEventListener("submit", function(e) {
     e.preventDefault();
@@ -131,13 +132,29 @@ const form = (() => {
     const player2Name = document.querySelector(".player-2").value;
     form.player1 = player(player1Name, "X");
     form.player2 = player(player2Name, "O");
+    clearNode(document.querySelector(".player-menu"));
     document.querySelector(".xName").textContent = form.player1.name;
     document.querySelector(".oName").textContent = form.player2.name;
+    showNode(gameBody);
+    showNode(resignButton);
   });
 
+  const clearNode = (node) => {
+    node.style.display = "none";
+  }
+
+  const showNode = (node) => {
+    node.style.display = "flex";
+  }
   return {
     player1,
     player2,
+    gameBody,
+    clearNode,
+    showNode,
   }
 })();
 
+// on load
+form.clearNode(resignButton);
+form.clearNode(form.gameBody);
