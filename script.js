@@ -1,13 +1,13 @@
 // Global variables
 const cells = document.querySelectorAll(".cell")
-function addListFunction(list) {
+function addListFunction(functionToAdd) {
   for (let i = 0; i < 9; i++) {
-    list[i].addEventListener("click", function(e) {
-      gameController.playTurn(list[i]);
+    cells[i].addEventListener("click", function(e) {
+      functionToAdd(cells[i]);
     });
   }
 };
-addListFunction(cells);
+
 
 const resignButton = document.querySelector(".resign");
 resignButton.addEventListener("click", function(e) {
@@ -93,12 +93,22 @@ const gameController = (() => {
     else if (array.filter(n => n).length == 9) {
       alert("The game is drawn");
       gameBoard.clearGrid();
+      } 
+  };
+
+  // function to toggle on computer play mode
+  const makeMove = () => {
+    for (i = 0; i < 9; i++) {
+      cells[i].addEventListener("click", function(e) {
+        setTimeout(computerPlay.easy, 500, cells);
+      });
     }
-};
+  }
 
   return {
     playTurn, 
     checkWin,
+    makeMove,
     token: "X"
   };
 })();
@@ -158,3 +168,4 @@ const form = (() => {
 // on load
 form.clearNode(resignButton);
 form.clearNode(form.gameBody);
+addListFunction(gameController.playTurn);
